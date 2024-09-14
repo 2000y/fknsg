@@ -4,8 +4,8 @@
 	<meta charset="utf-8">
 	<script>
 		// 需要修改的只有庆典开始和结束时间
-		var start_time = new Date("2024-9-13 00:00:00");	//庆典开始时间，日期格式 "年-月-日 时:分:秒"
-		var end_time = new Date("2024-9-18 23:59:59");		//庆典结束时间，日期格式 "年-月-日 时:分:秒"
+		var start_time = new Date("2024-10-1 00:00:00");	//庆典开始时间，日期格式 "年-月-日 时:分:秒"
+		var end_time = new Date("2024-10-6 23:59:59");		//庆典结束时间，日期格式 "年-月-日 时:分:秒"
 		var total_mission_num = parseInt((parseInt(end_time/1000) - parseInt(start_time/1000))/(90*60))+1;
 		function getNowFormatDate(date) {
 
@@ -87,9 +87,11 @@
 					document.getElementById('bx11average').innerHTML = "平均每个任务" + (4900/total_mission_num).toFixed(2) + "星";
 					
 					document.getElementById('renwuyi').innerHTML = "活动尚未开始哦！";
-					
+					document.getElementById('renwuzong').innerHTML = "";
+					document.getElementById('renwuyu').innerHTML = "";
+					document.getElementById('all_bx_show').style.visibility = "hidden";
 				} else if (num > 0 && num < total_mission_num+1) {
-				
+					document.getElementById('all_bx_show').style.visibility = "visible";
 					document.getElementById('title').innerHTML = getNowFormatDate(start_time)[0]+"庆典兑换";
 					document.getElementById('content_title').innerHTML = getNowFormatDate(start_time)[0]+"庆典兑换";
 					
@@ -124,6 +126,9 @@
 					
 				} else {
 					document.getElementById('renwuyi').innerHTML = "本次活动已结束，期待下次活动吧！";
+					document.getElementById('all_bx_show').style.visibility = "hidden";
+					document.getElementById('renwuzong').innerHTML = "";
+					document.getElementById('renwuyu').innerHTML = "";
 					clearInterval(shuaxin);
 					return;
 				}
@@ -152,6 +157,7 @@
 	<title id="title">xxxx年xx月xx日庆典兑换</title>
 </head>
 <body>
+	<br>
 	<div>庆典开始时间：<input id="start_select" type="date" oninput="start_select_update()"></div>
 	<br>
 	<div>庆典结束时间：<input id="end_select" type="date" oninput="end_select_update()"></div>
@@ -169,7 +175,7 @@
 				<div class="qingdian-renwuyi" id="renwuyi">本次庆典已过去x个任务</div>
 				<div class="qingdian-renwuyu" id="renwuyu">本次庆典已过去x个任务</div>
 				<br>
-				<div class="qingdian-tab-content">
+				<div class="qingdian-tab-content" id="all_bx_show">
 					<div class="show">
 						<p id="bx7">领7个宝箱，可开出38个活动道具，总计1900星</p>
 						<p id="bx7average">平均每个任务x星</p>
